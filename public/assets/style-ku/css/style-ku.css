@@ -1,0 +1,15 @@
+thead tr{
+	background-color: rgb(176, 217, 245);;
+}
+
+.table-container {
+		overflow: auto;
+	}
+
+.warnalapor{
+	background-color: rgb(141, 255, 141);
+}
+
+.warnaapp{
+	background-color: rgb(255, 126, 126);  
+}

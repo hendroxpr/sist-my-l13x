@@ -1,0 +1,11 @@
+{
+    "name": "Sibm01",
+    "alias": "sibm01",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Sibm01\\Providers\\Sibm01ServiceProvider"
+    ],
+    "files": []
+}

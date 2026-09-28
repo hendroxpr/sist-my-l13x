@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/sips01",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Sips01\\": "app/",
+            "Modules\\Sips01\\Database\\Factories\\": "database/factories/",
+            "Modules\\Sips01\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Sips01\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "Evot01",
+    "alias": "evot01",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Evot01\\Providers\\Evot01ServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/evot01",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Evot01\\": "app/",
+            "Modules\\Evot01\\Database\\Factories\\": "database/factories/",
+            "Modules\\Evot01\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Evot01\\Tests\\": "tests/"
+        }
+    }
+}

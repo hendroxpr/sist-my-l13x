@@ -1,0 +1,11 @@
+{
+    "name": "Sip01",
+    "alias": "sip01",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Sip01\\Providers\\Sip01ServiceProvider"
+    ],
+    "files": []
+}

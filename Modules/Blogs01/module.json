@@ -1,0 +1,11 @@
+{
+    "name": "Blogs01",
+    "alias": "blogs01",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Blogs01\\Providers\\Blogs01ServiceProvider"
+    ],
+    "files": []
+}

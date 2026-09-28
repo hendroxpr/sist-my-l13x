@@ -1,0 +1,11 @@
+{
+    "name": "Sis01",
+    "alias": "sis01",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Sis01\\Providers\\Sis01ServiceProvider"
+    ],
+    "files": []
+}

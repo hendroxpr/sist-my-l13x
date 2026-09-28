@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/sibm01",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Sibm01\\": "app/",
+            "Modules\\Sibm01\\Database\\Factories\\": "database/factories/",
+            "Modules\\Sibm01\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Sibm01\\Tests\\": "tests/"
+        }
+    }
+}
