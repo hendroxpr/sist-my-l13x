@@ -22,11 +22,30 @@ use Illuminate\Database\Eloquent\Model;
 class Tagihan extends Model
 {
     use HasFactory;
-
+    public function datasiswa()
+    {
+        return $this->belongsTo(Datasiswa::class,'iddatasiswa');
+    }
+    public function jenistagihan()
+    {
+        return $this->belongsTo(Jenistagihan::class,'idjenistagihan');
+    }
+    public function bulan()
+    {
+        return $this->belongsTo(Bulan::class,'idbulan');
+    }
+    public function tp()
+    {
+        return $this->belongsTo(Tp::class,'idtp');
+    }
+    public function dataguru()
+    {
+        return $this->belongsTo(Dataguru::class,'iddataguru');
+    }
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
+    // protected $fillable = [];
 
     // protected static function newFactory(): TagihanFactory
     // {

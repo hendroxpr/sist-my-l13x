@@ -283,6 +283,17 @@
             handle: '.modal-content' // Modal hanya bisa digeser 
             });
         });
+        //supaya kembali ke tengah saat show lagi.
+        const dragModalAdd = document.getElementById('ModalAdd');
+        dragModalAdd.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
         
         setTimeout(() => {
             data1Datatable = tampil_data1();    
@@ -290,7 +301,7 @@
         
         function tampil_data1(){
             let i = 1;
-            return $('#data1').DataTable({
+            return new DataTable('#data1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -319,7 +330,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.program_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.program_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -336,39 +350,53 @@
 
         tampil_listbidangx()
         //menampilkan combo bidangx
-        function tampil_listbidangx(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.program_listbidang')}}',
-                
-                success: function(data){		    
-                    idbidangx1.innerHTML = data;
-                    $("#idbidangx1").val({{ $idbidang }});
-                }
-            })
+        function tampil_listbidangx(){			
+            fetch('{{ route("sips01.master.program_listbidang") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idbidangx1){
+                        idbidangx1.innerHTML = data;
+                        idbidangx1.value = "{{ $idbidang }}";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
         tampil_listbidang1()
         //menampilkan combo bidang1
-        function tampil_listbidang1(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.program_listbidang')}}',
-                
-                success: function(data){		    
-                    idbidang1.innerHTML = data;
-                    $("#idbidang1").val({{ $idbidang }});
-                }
-            })
+        function tampil_listbidang1(){			
+            fetch('{{ route("sips01.master.program_listbidang") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idbidang1){
+                        idbidang1.innerHTML = data;
+                        idbidang1.value = "{{ $idbidang }}";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
 
-        setInterval(() => {
+        setTimeout(() => {
             idbidangx1.change();
             kirim_syarat();
         }, 500);
 
         idbidangx1.addEventListener('change', function () {
             setTimeout(() => {
-                $("#idbidang1").val($("#idbidangx1").val());
+                document.getElementById('idbidang1').value = document.getElementById('idbidangx1').value
                 kirim_syarat();
             }, 500); 
                     

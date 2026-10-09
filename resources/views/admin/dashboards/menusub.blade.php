@@ -284,9 +284,26 @@
         const user1xn = document.getElementById('user1xn');        
         const entry1 = document.getElementById('entry1');        
         const entry1xy = document.getElementById('entry1xy');        
-        const entry1xn = document.getElementById('entry1xn');        
+        const entry1xn = document.getElementById('entry1xn'); 
+        const urutan1 = document.getElementById('urutan1');   
         
-        const urutan1 = document.getElementById('urutan1');        
+        //dragging modal
+        $('#ModalAdd').on('shown.bs.modal', function () {
+            $(this).find('.modal-dialog').draggable({
+            handle: '.modal-content' // Modal hanya bisa digeser 
+            });
+        });
+        //supaya kembali ke tengah saat show lagi.
+        const dragModalAdd = document.getElementById('ModalAdd');
+        dragModalAdd.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
 
         //aktif
         aktif1xy.addEventListener('change', function(){
@@ -387,28 +404,43 @@
         tampil_listaplikasi()
         //menampilkan combo aplikasi
         function tampil_listaplikasi(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('admin.users_listaplikasi')}}',
-                
-                success: function(data){		    
-                   idaplikasi1.innerHTML = data;
-                   $("#idaplikasi1").val({{ $idaplikasi }});
-                }
-            })
+            fetch('{{ route("admin.users_listaplikasi") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idaplikasi1){
+                        idaplikasi1.innerHTML = data;
+                        idaplikasi1.value = "{{ $idaplikasi }}";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
+
         tampil_listmenuutama()
         //menampilkan combo menuutama
         function tampil_listmenuutama(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('admin.menusub_listmenuutama')}}',
-                
-                success: function(data){		    
-                   idmenuutama1.innerHTML = data;
-                   $("#idmenuutama1").val({{ $idmenuutama }}); 
-                }
-            })
+            fetch('{{ route("admin.menusub_listmenuutama") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idmenuutama1){
+                        idmenuutama1.innerHTML = data;
+                        idmenuutama1.value = "{{ $idmenuutama }}";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
 
         setInterval(() => {
@@ -462,7 +494,7 @@
         }, 1000);
         
         function tampil_data1(){
-            return $('#data1').DataTable({
+            return new DataTable('#data1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -491,7 +523,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.menusub_show') }}",
+                ajax: {
+                    url: "{{ route('admin.menusub_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 

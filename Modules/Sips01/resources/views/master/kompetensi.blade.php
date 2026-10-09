@@ -603,15 +603,22 @@
 
         //menampilkan combo dataguru
         tampil_listdataguru();
-        function tampil_listdataguru(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.kompetensi_listdataguru')}}',
-                
-                success: function(data){	
-                    iddataguru1.innerHTML = data;			    
-                }
-            })                    
+        function tampil_listdataguru(){			
+            fetch('{{ route("sips01.master.kompetensi_listdataguru") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(iddataguru1){
+                        iddataguru1.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
 
         lama1.addEventListener('input', function() {
@@ -663,10 +670,56 @@
             handle: '.modal-content' // Modal hanya bisa digeser 
             });
         });
-        $('#ModalProfesi').on('shown.bs.modal', function () {
-            $(this).find('.modal-dialog').draggable({
-            handle: '.modal-content' // Modal hanya bisa digeser 
-            });
+        //supaya kembali ke tengah saat show lagi.
+        const dragModalAdd = document.getElementById('ModalAdd');
+        dragModalAdd.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalMateri = document.getElementById('ModalMateri');
+        dragModalMateri.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalPrestasi = document.getElementById('ModalPrestasi');
+        dragModalPrestasi.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });        
+        const dragModalProfesi = document.getElementById('ModalProfesi');
+        dragModalProfesi.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalKeterangan = document.getElementById('ModalKeterangan');
+        dragModalKeterangan.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
         });
         
         setTimeout(() => {

@@ -80,6 +80,26 @@
             text-overflow: ellipsis; 
         }
 
+        .table-tanpa-garis-kanan th, 
+        .table-tanpa-garis-kanan td {
+            border-right: none !important;
+        }
+        
+        .table-tanpa-garis-kiri th, 
+        .table-tanpa-garis-kiri td {
+            border-left: none !important;
+        }
+        
+        .table-tanpa-garis-atas th, 
+        .table-tanpa-garis-atas td {
+            border-top: none !important;
+        }
+        .table-tanpa-garis-bawah th, 
+        .table-tanpa-garis-bawah td {
+            border-bottom: none !important;
+        }
+        
+
 
     </style>
 
@@ -92,6 +112,7 @@
         use Modules\Sips01\Models\Tp;
         use Modules\Sips01\Models\Magang;
         use Modules\Sips01\Models\Absensi;
+        use Modules\Sips01\Models\Datasiswa;
 
         $smk = strtoupper(session('memnamasingkat'));
         $iddatasiswa = $siswakelas[0]->iddatasiswa;
@@ -139,15 +160,56 @@
 
         <table width="100%" class="garis">
             <tr>
-                
                 <td align="center" rowspan="6">NO</td>
                 <td align="center">TAHUN PELAJARAN</td>
                 <td align="center"></td>
-                <td align="center" colspan="2">1-2</td>
-                <td align="center" colspan="2">3-4</td>
-                <td align="center" colspan="2">5-6</td>
-                <td align="center" colspan="2">7-8</td>
-                <td align="center" colspan="5" rowspan="4">NILAI UJIAN AKHIR<br>TAHUN ......</td>
+                @php
+                    $tpx = Nilai::select('idtp')->where('iddatasiswa','=',$iddatasiswa)
+                    ->with(['datasiswa','mapel','tp'])
+                    ->where('smt','>=',1)
+                    ->where('smt','<=',2)
+                    ->get();
+                    $tp = $tpx[0]->tp->tp ?? ''; 
+                @endphp
+                <td align="center" colspan="2">{{ $tp }}</td>
+                @php
+                    $tpx = Nilai::select('idtp')->where('iddatasiswa','=',$iddatasiswa)
+                    ->with(['datasiswa','mapel','tp'])
+                    ->where('smt','>=',3)
+                    ->where('smt','<=',4)
+                    ->get();
+                    $tp = $tpx[0]->tp->tp ?? ''; 
+                @endphp
+                <td align="center" colspan="2">{{ $tp }}</td>
+                @php
+                    $tpx = Nilai::select('idtp')->where('iddatasiswa','=',$iddatasiswa)
+                    ->with(['datasiswa','mapel','tp'])
+                    ->where('smt','>=',5)
+                    ->where('smt','<=',6)
+                    ->get();
+                    $tp = $tpx[0]->tp->tp ?? ''; 
+                @endphp
+                <td align="center" colspan="2">{{ $tp }}</td>
+                @php
+                    $tpx = Nilai::select('idtp')->where('iddatasiswa','=',$iddatasiswa)
+                    ->with(['datasiswa','mapel','tp'])
+                    ->where('smt','>=',7)
+                    ->where('smt','<=',8)
+                    ->get();
+                    $tp = $tpx[0]->tp->tp ?? ''; 
+                @endphp
+                <td align="center" colspan="2">{{ $tp }}</td>
+                @php
+                   $tahunx = Nilai::select('idtp')->where('iddatasiswa','=',$iddatasiswa)
+                    ->with(['datasiswa','mapel','tp'])
+                    ->where('smt','>=',21)
+                    ->where('smt','<=',23)
+                    ->get();
+                     
+                    $exp_thn = explode("/", $tahunx[0]->tp->tp ?? '........../..........');
+                    $thn = $exp_thn[1];
+                @endphp
+                <td align="center" colspan="5" rowspan="4">NILAI UJIAN AKHIR<br>TAHUN {{ $thn }}</td>
             </tr>
             <tr>
                 <td align="center">KELAS</td>
@@ -224,7 +286,7 @@
                 $kelompokmapel = Kelompokmapel::select('kelompokmapel')->where('id','=',$idkelompok)->value('kelompokmapel');
             @endphp
             <tr>
-                <td style="width: 20px;" align="center">A</td>
+                <td style="width: 22px;" align="center">A</td>
                 <td>{{ $kelompokmapel }}</td>
                 <td style="width: 60px;"></td>
                 <td style="width: 80px;"></td>
@@ -1219,6 +1281,12 @@
                 <td  align="center" colspan="3"></td>
             </tr>
 
+            
+        </table>
+        
+
+        <table width="100%" class="garis">
+
             @php
                 $idkelompok = '9'; // EXTRA KURIKULER
                 $kelompokmapel = Kelompokmapel::select('kelompokmapel')->where('id','=',$idkelompok)->value('kelompokmapel');
@@ -1230,8 +1298,8 @@
             @endphp
 
             <tr>
-                <td align="center" rowspan="3" style="font-size: 0.7em; line-height: 1.2;" class="vertical-text force-height"><span>EXTRA<br>KURIKULER</span></td>
-                <td style="line-height: 1.2;" colspan="2">1. {{ $mapel[0]->mapel ?? '' }}</td>
+                <td width="15px" align="center" rowspan="3" style="font-size: 0.7em; line-height: 1.2;" class="vertical-text force-height"><span>EXTRA<br>KURIKULER</span></td>
+                <td width="190px" style="line-height: 1.2;">1. {{ $mapel[0]->mapel ?? '' }}</td>
                 @for ($i = 1; $i <= 8; $i++)
                     @php
                         $nilai = Nilai::select('nilai')->where('iddatasiswa','=',$iddatasiswa)
@@ -1239,14 +1307,13 @@
                         ->where('smt','=',$i)
                         ->value('nilai');
                     @endphp
-                    <td align="center">{{ $nilai }} </td>    
+                    <td width="125px" align="center">{{ $nilai }} </td>    
                 @endfor
-                <td align="center" colspan="2"></td>
-                <td align="center" colspan="3"></td>
+                <td width="160px" align="center"></td>
             </tr>
             
             <tr>
-                <td colspan="2">2. {{ $mapel[1]->mapel ?? '' }}</td>
+                <td>2. {{ $mapel[1]->mapel ?? '' }}</td>
                 @for ($i = 1; $i <= 8; $i++)
                     @php
                         $nilai = Nilai::select('nilai')->where('iddatasiswa','=',$iddatasiswa)
@@ -1256,11 +1323,10 @@
                     @endphp
                     <td align="center">{{ $nilai }} </td>    
                 @endfor
-                <td align="center" colspan="2"></td>
-                <td align="center" colspan="3"></td>
+                <td align="center"></td>
             </tr>
             <tr>
-                <td colspan="2">3. {{ $mapel[2]->mapel ?? '' }}</td>
+                <td>3. {{ $mapel[2]->mapel ?? '' }}</td>
                 @for ($i = 1; $i <= 8; $i++)
                     @php
                         $nilai = Nilai::select('nilai')->where('iddatasiswa','=',$iddatasiswa)
@@ -1270,13 +1336,12 @@
                     @endphp
                     <td align="center">{{ $nilai }} </td>    
                 @endfor
-                <td align="center" colspan="2"></td>
-                <td align="center" colspan="3"></td>
+                <td align="center"></td>
             </tr>
 
             <tr>
                 <td align="center" rowspan="3" style="font-size: 0.7em; line-height: 1.2;" class="vertical-text force-height"><span>KETIDAK<br>HADIRAN</span></td>
-                <td style="line-height: 1.2;" colspan="2">1. Sakit</td>
+                <td style="line-height: 1.2;">1. Sakit</td>
                 @for ($i = 1; $i <= 8; $i++)
                     @php
                         $absenx = Absensi::select('sakit')->where('iddatasiswa','=',$iddatasiswa)
@@ -1288,14 +1353,24 @@
                             $absen = $absenx . '  hari';
                         }
                     @endphp
-                    <td align="center">{{ $absen }} </td>    
+                    <td align="center">{{ $absen }}</td>    
                 @endfor
-                <td align="center" colspan="2"></td>
-                <td align="center" colspan="3"></td>
+                @php
+                    $absenx = Absensi::select('sakit')->where('iddatasiswa','=',$iddatasiswa)
+                    ->where('smt','>=',1)
+                    ->where('smt','<=',8)
+                    ->sum('sakit');
+                    if($absenx==''){
+                        $absen = '....  hari';
+                    }else{
+                        $absen = $absenx . '  hari';
+                    }
+                @endphp
+                <td align="center">{{ $absen }}</td>
             </tr>
             
             <tr>
-                <td colspan="2">2. Izin</td>
+                <td>2. Izin</td>
                 @for ($i = 1; $i <= 8; $i++)
                     @php
                         $absenx = Absensi::select('izin')->where('iddatasiswa','=',$iddatasiswa)
@@ -1309,11 +1384,21 @@
                     @endphp
                     <td align="center">{{ $absen }} </td>    
                 @endfor
-                <td align="center" colspan="2"></td>
-                <td align="center" colspan="3"></td>
+                @php
+                    $absenx = Absensi::select('izin')->where('iddatasiswa','=',$iddatasiswa)
+                    ->where('smt','>=',1)
+                    ->where('smt','<=',8)
+                    ->sum('izin');
+                    if($absenx==''){
+                        $absen = '....  hari';
+                    }else{
+                        $absen = $absenx . '  hari';
+                    }
+                @endphp
+                <td align="center">{{ $absen }}</td>
             </tr>
             <tr>
-                <td colspan="2">3. Tanpa Keterangan</td>
+                <td>3. Tanpa Keterangan</td>
                 @for ($i = 1; $i <= 8; $i++)
                     @php
                         $absenx = Absensi::select('alpa')->where('iddatasiswa','=',$iddatasiswa)
@@ -1327,52 +1412,263 @@
                     @endphp
                     <td align="center">{{ $absen }} </td>    
                 @endfor
-                <td align="center" colspan="2"></td>
-                <td align="center" colspan="3"></td>
+                @php
+                    $absenx = Absensi::select('alpa')->where('iddatasiswa','=',$iddatasiswa)
+                    ->where('smt','>=',1)
+                    ->where('smt','<=',8)
+                    ->sum('alpa');
+                    if($absenx==''){
+                        $absen = '....  hari';
+                    }else{
+                        $absen = $absenx . '  hari';
+                    }
+                @endphp
+                <td align="center">{{ $absen }}</td>
             </tr>
 
             <tr>
-                <td align="center"></td>
-                <td>KELOMPOK UMUM<br>dua</td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center" colspan="2"></td>
-                <td align="center" colspan="3"></td>
+                <td colspan="2">Status Akhir Tahun</td>
+                 @php
+                    $kelas = Absensi::select('kelas')->where('iddatasiswa','=',$iddatasiswa)
+                    ->where('smt','=',2)
+                    ->value('kelas');
+                    $absenx = Absensi::where('iddatasiswa','=',$iddatasiswa)
+                        ->where('smt','=',2)
+                        ->get();
+                    $kelas = $absenx[0]->kelas ?? ''; 
+                    $status = $absenx[0]->status ?? ''; 
+                    $tempatwali2 = $absenx[0]->tempatwali ?? '..........................................'; 
+                    $namawali2 = $absenx[0]->namawali ?? '..........................................'; 
+                    $nipwali2 = $absenx[0]->nipwali ?? '.................................'; 
+                    $tempatks2 = $absenx[0]->tempatks ?? '..........................................'; 
+                    $namaks2 = $absenx[0]->namaks ?? '..........................................'; 
+                    $nipks2 = $absenx[0]->nipks ?? '.................................'; 
+
+                    if($kelas==''){
+                        $kelasa='......';
+                    }else{
+                        $kelasa=$kelas;
+                    }
+                    if($status=='T'){
+                        $naikx = '<s>Naik ke</s>';
+                        $tinggalx = 'Tinggal di';
+                        $kelasx = $kelasa;
+                    }else if($status=='Y'){
+                        $naikx = 'Naik ke';
+                        $tinggalx = '<s>Tinggal di</s>';
+                        $kelasx = $kelasa;
+                    }else{
+                        $naikx = 'Naik ke';
+                        $tinggalx = '<s>Tinggal di</s>';
+                        $kelasx = '......';
+                    }
+                    
+                @endphp
+                <td class="table-tanpa-garis-kiri table-tanpa-garis-kanan table-tanpa-garis-atas table-tanpa-garis-bawah" colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td width="50px"></td>
+                            <td width="25px">{!! $naikx !!}</td>
+                            <td width="85px">*) Kelas {{ $kelasx }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{!! $tinggalx !!}</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+                @php
+                    $kelas = Absensi::select('kelas')->where('iddatasiswa','=',$iddatasiswa)
+                    ->where('smt','=',4)
+                    ->value('kelas');
+                    $absenx = Absensi::where('iddatasiswa','=',$iddatasiswa)
+                        ->where('smt','=',4)
+                        ->get();
+                    $kelas = $absenx[0]->kelas ?? ''; 
+                    $status = $absenx[0]->status ?? ''; 
+                    $tempatwali4 = $absenx[0]->tempatwali ?? '..........................................'; 
+                    $namawali4 = $absenx[0]->namawali ?? '..........................................'; 
+                    $nipwali4 = $absenx[0]->nipwali ?? '.................................'; 
+                    $tempatks4 = $absenx[0]->tempatks ?? '..........................................'; 
+                    $namaks4 = $absenx[0]->namaks ?? '..........................................'; 
+                    $nipks4 = $absenx[0]->nipks ?? '.................................'; 
+
+                    if($kelas==''){
+                        $kelasa='......';
+                    }else{
+                        $kelasa=$kelas;
+                    }
+                    if($status=='T'){
+                        $naikx = '<s>Naik ke</s>';
+                        $tinggalx = 'Tinggal di';
+                        $kelasx = $kelasa;
+                    }else if($status=='Y'){
+                        $naikx = 'Naik ke';
+                        $tinggalx = '<s>Tinggal di</s>';
+                        $kelasx = $kelasa;
+                    }else{
+                        $naikx = 'Naik ke';
+                        $tinggalx = 'Tinggal di';
+                        $kelasx = '......';
+                    }
+                    
+                @endphp
+                <td class="table-tanpa-garis-kiri table-tanpa-garis-kanan table-tanpa-garis-atas table-tanpa-garis-bawah" colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td width="50px"></td>
+                            <td width="25px">{!! $naikx !!}</td>
+                            <td width="85px">*) Kelas {{ $kelasx }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{!! $tinggalx !!}</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+                @php
+                    $kelas = Absensi::select('kelas')->where('iddatasiswa','=',$iddatasiswa)
+                    ->where('smt','=',6)
+                    ->value('kelas');
+                    $absenx = Absensi::where('iddatasiswa','=',$iddatasiswa)
+                        ->where('smt','=',6)
+                        ->get();
+                    $kelas = $absenx[0]->kelas ?? ''; 
+                    $status = $absenx[0]->status ?? ''; 
+                    $tempatwali6 = $absenx[0]->tempatwali ?? '..........................................'; 
+                    $namawali6 = $absenx[0]->namawali ?? '..........................................'; 
+                    $nipwali6 = $absenx[0]->nipwali ?? '.................................'; 
+                    $tempatks6 = $absenx[0]->tempatks ?? '..........................................'; 
+                    $namaks6 = $absenx[0]->namaks ?? '..........................................'; 
+                    $nipks6 = $absenx[0]->nipks ?? '.................................';  
+
+                    if($kelas==''){
+                        $kelasa='......';
+                    }else{
+                        $kelasa=$kelas;
+                    }
+                    if($status=='T'){
+                        $naikx = '<s>Naik ke</s>';
+                        $tinggalx = 'Tinggal di';
+                        $kelasx = $kelasa;
+                    }else if($status=='Y'){
+                        $naikx = 'Naik ke';
+                        $tinggalx = '<s>Tinggal di</s>';
+                        $kelasx = $kelasa;
+                    }else{
+                        $naikx = 'Naik ke';
+                        $tinggalx = 'Tinggal di';
+                        $kelasx = '......';
+                    }
+                    
+                @endphp
+                <td class="table-tanpa-garis-kiri table-tanpa-garis-kanan table-tanpa-garis-atas table-tanpa-garis-bawah" colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td width="50px"></td>
+                            <td width="25px">{!! $naikx !!}</td>
+                            <td width="85px">*) Kelas {{ $kelasx }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{!! $tinggalx !!}</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+                @php
+                    $kelas = Absensi::select('kelas')->where('iddatasiswa','=',$iddatasiswa)
+                    ->where('smt','=',8)
+                    ->value('kelas');
+                    $absenx = Absensi::where('iddatasiswa','=',$iddatasiswa)
+                        ->where('smt','=',8)
+                        ->get();
+                    $kelas = $absenx[0]->kelas ?? ''; 
+                    $status = $absenx[0]->status ?? ''; 
+                    $tempatwali8 = $absenx[0]->tempatwali ?? '..........................................'; 
+                    $namawali8 = $absenx[0]->namawali ?? '..........................................'; 
+                    $nipwali8 = $absenx[0]->nipwali ?? '.................................'; 
+                    $tempatks8 = $absenx[0]->tempatks ?? '..........................................'; 
+                    $namaks8 = $absenx[0]->namaks ?? '..........................................'; 
+                    $nipks8 = $absenx[0]->nipks ?? '.................................'; 
+
+                    if($kelas==''){
+                        $kelasa='......';
+                    }else{
+                        $kelasa=$kelas;
+                    }
+                    if($status=='T'){
+                        $naikx = '<s>Naik ke</s>';
+                        $tinggalx = 'Tinggal di';
+                        $kelasx = $kelasa;
+                    }else if($status=='Y'){
+                        $naikx = 'Naik ke';
+                        $tinggalx = '<s>Tinggal di</s>';
+                        $kelasx = $kelasa;
+                    }else{
+                        $naikx = 'Naik ke';
+                        $tinggalx = 'Tinggal di';
+                        $kelasx = '......';
+                    }
+                    
+                @endphp
+                <td class="table-tanpa-garis-kiri table-tanpa-garis-kanan table-tanpa-garis-atas table-tanpa-garis-bawah" colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td width="50px"></td>
+                            <td width="25px">{!! $naikx !!}</td>
+                            <td width="85px">*) Kelas {{ $kelasx }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{!! $tinggalx !!}</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+                @php
+                    $tglijasahlulus = Datasiswa::select('tglijasahlulus')->where('id','=',$iddatasiswa)
+                        ->value('tglijasahlulus');
+                    $tgllulus = \Carbon\Carbon::parse($tglijasahlulus)->locale('id')->isoFormat('DD MMMM YYYY') ?? '..................................... ';
+                @endphp
+                <td align="center">LULUS<br>TGL. {{ $tgllulus }}</td>
             </tr>
-            <tr>
-                <td align="center"></td>
-                <td>KELOMPOK UMUM</td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-                <td align="center"></td>
-            </tr>
 
-
-
-                            
         </table>
+        Keterangan : NP : Nilai Pengetauan; NK : Nilai Ketrampilan; NSSS : Nilai Sikap Spiritual dan Sosial.
         
+        <table width="100%">
+            <tr>
+                <td align="center" width="300px">&nbsp;</td>
+                <td align="center" width="250px"></td>
+                <td align="center" width="250px"></td>
+                <td align="center" width="250px"></td>
+                <td align="center" width="200px"></td>
+            </tr>
 
-        
-        
+            
+            <tr>
+                <td align="center"></td>
+                <td align="center">
+                    {{ $tempatwali4 }}<br>Wali Kelas,<br><br><br><br><br>
+                    {{ $namawali4 }}<br>
+                    NIP. {{ $nipwali4 }}
+                </td>
+                <td align="center">
+                    {{ $tempatwali6 }}<br>Wali Kelas,<br><br><br><br><br>
+                    {{ $namawali6 }}<br>
+                    NIP. {{ $nipwali6 }}
+                </td>
+                <td align="center">
+                    {{ $tempatks6 }}<br>Kepala Sekolah,<br><br><br><br><br>
+                    {{ $namaks6 }}<br>
+                    NIP. {{ $nipks6 }}
+                </td>
+                <td align="center"></td>
+            </tr>
+        </table>
 
 
 

@@ -350,18 +350,42 @@
         const inputfoto1 = document.getElementById('foto1');
         const gambarfoto1 = document.getElementById('gambarfoto1');        
 
+        //dragging modal
+        $('#ModalAdd').on('shown.bs.modal', function () {
+            $(this).find('.modal-dialog').draggable({
+            handle: '.modal-content' // Modal hanya bisa digeser 
+            });
+        });
+        //supaya kembali ke tengah saat show lagi.
+        const dragModalAdd = document.getElementById('ModalAdd');
+        dragModalAdd.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+
         //preview foto1
         inputfoto1.addEventListener('change', function(){
-            var gbrx="<img class='img-previewfoto1 img-fluid col-sm-12 mb-1 mt-1 d-block' id='img-previewfoto1' name='img-previewfoto1' style='width: 100%;'>";
-            gambarfoto1.innerHTML=gbrx;
+            var gbrx = "<img class='img-previewfoto1 img-fluid col-sm-12 mb-1 mt-1 d-block' id='img-previewfoto1' name='img-previewfoto1' style='width: 100%;'>";
+            gambarfoto1.innerHTML = gbrx;
+            
             if (this.files && this.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('.img-previewfoto1').attr('src', e.target.result);
+                    // PENGGANTI JQUERY: Memilih elemen berdasarkan class dan mengubah atribut src
+                    const previewImage = document.querySelector('.img-previewfoto1');
+                    if (previewImage) {
+                        previewImage.src = e.target.result;
+                    }
                 }
                 reader.readAsDataURL(this.files[0]);
             }
         });
+
         
         //level
         levels1xadmin.addEventListener('change', function(){
@@ -461,15 +485,22 @@
 
         tampil_listaplikasi()
         //menampilkan combo aplikasi
-        function tampil_listaplikasi(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('admin.users_listaplikasi')}}',
-                
-                success: function(data){		    
-                   idaplikasi1.innerHTML = data;                
-                }
-            })
+        function tampil_listaplikasi() {				
+            fetch('{{ route("admin.users_listaplikasi") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idaplikasi1){
+                        idaplikasi1.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
 
         setTimeout(() => {
@@ -478,7 +509,7 @@
         
         function tampil_data1(){
             let i = 1;
-            return $('#data1').DataTable({
+            return new DataTable('#data1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -507,7 +538,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.users_show') }}",
+                ajax: {
+                    url: "{{ route('admin.users_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -744,44 +778,7 @@
                 }
             }); 
         }
-
-    //   async function data_destroy() {
-    //         var id3 = document.getElementById('id3').value;       
-    //         var data3a = document.getElementById('data3a').value;
-    //         const url = `{{ url('/admin/usersdestroy') }}/${id3}`;
-            
-    //         try {
-    //             const response = await fetch(url, {
-    //                 method: 'GET',
-    //                 headers: {
-    //                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    //                     'Accept': 'application/json'
-    //                 }
-    //             });
-
-    //              // Jika status HTTP server bermasalah (misal: 404 atau 500)
-    //             if (!response.ok) {
-    //                 throw new Error('Gagal menghapus data dari server');
-    //             }
-
-    //             // Membaca response jika backend mengembalikan data JSON
-    //             const data = await response.json();
-
-    //             // === BLOK SUCCESS ===
-    //             tampil_data();
-    //             if (typeof swalsukseshapus === 'function') {
-    //                 swalsukseshapus(data3a); 
-    //                 tampil_dataTable();
-    //             }
-
-    //         } catch (error) {
-    //             console.error('Error saat memuat data:', error);
-    //             if (typeof swalgagaldestroy === 'function') {
-    //                 // swalgagaldestroy('Gagal destroy data pengguna.');
-    //             }
-    //         }
-    //     }
-        
+    
         function swalsuksestambah(x){
             Swal.fire({
                 icon: 'success',

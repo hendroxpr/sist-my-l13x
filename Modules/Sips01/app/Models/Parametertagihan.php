@@ -23,6 +23,24 @@ class Parametertagihan extends Model
 {
     use HasFactory;
 
+    public function tp()
+    {
+        return $this->belongsTo(Tp::class,'idtp');
+    }
+    
+    public function jenistagihan()
+    {
+        return $this->belongsTo(Jenistagihan::class,'idjenistagihan');
+    }
+
+    public function dataguru()
+    {
+        return $this->belongsTo(Dataguru::class,'iddataguru');
+    }
+    public function tingkat()
+    {
+        return $this->belongsTo(Tingkat::class,'idtingkat');
+    }
     /**
      * The attributes that are mass assignable.
      */

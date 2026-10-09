@@ -2953,6 +2953,87 @@
             handle: ".modal-content" // Modal hanya bisa digeser saat pointer menarik bagian header
             });
         });
+        //supaya kembali ke tengah saat show lagi.
+        const dragModalAdd = document.getElementById('ModalAdd');
+        dragModalAdd.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalCarikompetensi = document.getElementById('ModalCarikompetensi');
+        dragModalCarikompetensi.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalBeasiswa = document.getElementById('ModalBeasiswa');
+        dragModalBeasiswa.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalCarikabupaten = document.getElementById('ModalCarikabupaten');
+        dragModalCarikabupaten.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalCaridesa = document.getElementById('ModalCaridesa');
+        dragModalCaridesa.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalImport = document.getElementById('ModalImport');
+        dragModalImport.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalPrint = document.getElementById('ModalPrint');
+        dragModalPrint.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+        const dragModalKirim = document.getElementById('ModalKirim');
+        dragModalKirim.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
        
         //aktif
         aktif1xy.addEventListener('change', function(){
@@ -3221,7 +3302,7 @@
 
         function tampil_beasiswa1(){
             let i = 1;
-            return $('#beasiswa1').DataTable({
+            return new DataTable('#beasiswa1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3234,8 +3315,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                // `{{ url('/sips01/master/datasiswaedit') }}/${id1}`;
-                ajax: `{{ route('sips01.master.datasiswa_showbeasiswa') }}`,
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_showbeasiswa') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3314,15 +3397,13 @@
                     swalgagalkirim(kelas);
                 });    
         }
-
-        
         
         setTimeout(() => {
             identitas1Datatable = tampil_identitas1();    
         }, 1000);
         function tampil_identitas1(){
             let i = 1;
-            return $('#identitas1').DataTable({
+            return new DataTable('#identitas1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3351,7 +3432,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3381,7 +3465,7 @@
         }, 1000);
         function tampil_datadiri1(){
             let i = 1;
-            return $('#datadiri1').DataTable({
+            return new DataTable('#datdiri1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3410,7 +3494,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3444,7 +3531,7 @@
         }, 1000);
         function tampil_tempattinggal1(){
             let i = 1;
-            return $('#tempattinggal1').DataTable({
+            return new DataTable('#tempattinggal1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3473,7 +3560,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3506,7 +3596,7 @@
         }, 1000);
         function tampil_kesehatan1(){
             let i = 1;
-            return $('#kesehatan1').DataTable({
+            return new DataTable('#kesehatan1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3535,7 +3625,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3566,7 +3659,7 @@
         }, 1000);
         function tampil_pendidikan1(){
             let i = 1;
-            return $('#pendidikan1').DataTable({
+            return new DataTable('#pendidikan1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3595,7 +3688,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3630,7 +3726,7 @@
         }, 1000);
         function tampil_ayahkandung1(){
             let i = 1;
-            return $('#ayahkandung1').DataTable({
+            return new DataTable('#ayahkandung1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3659,7 +3755,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3691,7 +3790,7 @@
         }, 1000);
         function tampil_ibukandung1(){
             let i = 1;
-            return $('#ibukandung1').DataTable({
+            return new DataTable('#ibukandung1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3720,7 +3819,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3752,7 +3854,7 @@
         }, 1000);
         function tampil_wali1(){
             let i = 1;
-            return $('#wali1').DataTable({
+            return new DataTable('#wali1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3781,7 +3883,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3813,7 +3918,7 @@
         }, 1000);
         function tampil_hobi1(){
             let i = 1;
-            return $('#hobi1').DataTable({
+            return new DataTable('#hobi1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3842,7 +3947,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -3873,7 +3981,6 @@
         }, 1000);
         function tampil_perkembangan1(){
             let i = 1;
-           
             return new DataTable('#perkembangan1', {
                 responsive : true,
                 // destroy: true,
@@ -3946,7 +4053,7 @@
         }, 1000);
         function tampil_selesai1(){
             let i = 1;
-            return $('#selesai1').DataTable({
+            return new DataTable('#selesai1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -3975,7 +4082,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -4009,7 +4119,7 @@
         }, 1000);
         function tampil_images1(){
             let i = 1;
-            return $('#images1').DataTable({
+            return new DataTable('#images1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -4038,7 +4148,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -4076,7 +4189,7 @@
         tampil_carikompetensi1()
         function tampil_carikompetensi1(){
             let i = 1;
-            return $('#carikompetensi1').DataTable({
+            return new DataTable('#carikompetensi1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -4088,7 +4201,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_showkompetensi') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_showkompetensi') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -4198,7 +4314,7 @@
         tampil_carikabupaten1()
         function tampil_carikabupaten1(){
             let i = 1;
-            return $('#carikabupaten1').DataTable({
+            return new DataTable('#carikabupaten1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -4210,7 +4326,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_showkabupaten') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_showkabupaten') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -4312,7 +4431,7 @@
         tampil_caridesa1()
         function tampil_caridesa1(){
             let i = 1;
-            return $('#caridesa1').DataTable({
+            return new DataTable('#caridesa1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -4324,7 +4443,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.datasiswa_showdesa') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.datasiswa_showdesa') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 
@@ -4499,20 +4621,26 @@
             }
         });
 
-
         setTimeout(() => {
             tampil_listtinggal();
         }, 1000);
         //menampilkan combo tinggal
         function tampil_listtinggal(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.datasiswa_listtinggal')}}',
-                
-                success: function(data){				    
-                    $("#idtinggal1").html(data);                
-                }
-            })                    
+            fetch('{{ route("sips01.master.datasiswa_listtinggal") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idtinggal1){
+                        idtinggal1.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
 
         setTimeout(() => {
@@ -4520,15 +4648,22 @@
         }, 1000);
         //menampilkan combo gd
         function tampil_listgd(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.datasiswa_listgd')}}',
-                
-                success: function(data){				    
-                    $("#idgd1").html(data);                
-                }
-            })                    
-        }
+            fetch('{{ route("sips01.master.datasiswa_listgd") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idgd1){
+                        idgd1.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        } 
 
         //menampilkan combo tpx
         tampil_listtpx()
@@ -4638,70 +4773,155 @@
     }, 1000);
     //menampilkan combo desa
     function tampil_listdesa(){				
-        $.ajax({
-            type: 'get',
-            url   : '{{route('sips01.master.datasiswa_listdesa')}}',
-            
-            success: function(data){
-                // $("#iddesa1").html(data);                
-                // $('#iddesa1').attr('disabled', '');  
-                // $("#iddesaayah1").html(data);                
-                // $("#iddesaibu1").html(data);                
-                // $("#iddesawali1").html(data);                
-            }
-        })                    
-    }
+            fetch('{{ route("sips01.master.datasiswa_listdesa") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    // if(idgd1){
+                    //     idgd1.innerHTML = data;
+                    // }
+                    // $("#iddesa1").html(data);                
+                    // $('#iddesa1').attr('disabled', '');  
+                    // $("#iddesaayah1").html(data);                
+                    // $("#iddesaibu1").html(data);                
+                    // $("#iddesawali1").html(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        } 
+
         tampil_liststatussiswa();
         //menampilkan combo statussiswa
         function tampil_liststatussiswa(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.datasiswa_liststatussiswa')}}',
-                
-                success: function(data){				    
-                    $("#idstatussiswa1").html(data);                
-                }
-            })                    
-        }
+            fetch('{{ route("sips01.master.datasiswa_liststatussiswa") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idstatussiswa1){
+                        idstatussiswa1.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        } 
 
         tampil_liststatusanak();
         //menampilkan combo statusanak
         function tampil_liststatusanak(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.datasiswa_liststatusanak')}}',
-                
-                success: function(data){				    
-                    $("#idstatusanak1").html(data);                
-                }
-            })                    
+            fetch('{{ route("sips01.master.datasiswa_liststatusanak") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idstatusanak1){
+                        idstatusanak1.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
 
         tampil_listpendidikan();
-        //menampilkan combo pendidikan
-        function tampil_listpendidikan(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.datasiswa_listpendidikan')}}',
+        // menampilkan combo pendidikan
+        // function tampil_listpendidikan(){			
+        //     fetch('{{ route("sips01.master.datasiswa_listpendidikan") }}')
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 throw new Error('Network response was not ok');
+        //             }
+        //             return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+        //         })
+        //         .then(data => {
+        //             if(idpendidikanayah1){
+        //                 idpendidikanayah1.innerHTML = data;                        
+        //             }
+        //             if(idpendidikanibu1){
+        //                 idpendidikanibu1.innerHTML = data;                        
+        //             }
+        //             if(idpendidikanwali1){
+        //                 idpendidikanwali1.innerHTML = data;                        
+        //             }
+                    
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching data:', error);
+        //         });
+        // }
+        
+        // function tampil_listpendidikan() {
+        //     fetch('{{route('sips01.master.datasiswa_listpendidikan')}}', {
+        //         method: 'GET'
+        //     })
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error('Network response was not ok');
+        //         }
+        //         return response.text(); // Menggunakan .text() karena data yang dikembalikan berupa HTML string
+        //     })
+        //     .then(data => {
+        //         // Mengisi innerHTML untuk ketiga elemen sekaligus
+        //         const targetElements = ['#idpendidikanayah1', '#idpendidikanibu1', '#idpendidikanwali1'];
+        //         targetElements.forEach(selector => {
+        //             const element = document.querySelector(selector);
+        //             if (element) {
+        //                 element.innerHTML = data;
+        //             }
+        //         });
+        //     })
+        //     .catch(error => {
+        //         console.error('Ada masalah dengan operasi fetch:', error);
+        //     });
+        // }
+
+        async function tampil_listpendidikan() {
+            try {
+                const response = await fetch('{{route('sips01.master.datasiswa_listpendidikan')}}');
+                if (!response.ok) throw new Error('Gagal memuat data');
                 
-                success: function(data){				    
-                    $("#idpendidikanayah1").html(data);                
-                    $("#idpendidikanibu1").html(data);                
-                    $("#idpendidikanwali1").html(data);                
-                }
-            })                    
+                const data = await response.text();
+                
+                // Langsung tembak ke masing-masing ID tanpa perulangan array
+                document.getElementById('idpendidikanayah1').innerHTML = data;
+                document.getElementById('idpendidikanibu1').innerHTML = data;
+                document.getElementById('idpendidikanwali1').innerHTML = data;
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
+
         tampil_listjk();
         //menampilkan combo jk
         function tampil_listjk(){				
-            $.ajax({
-                type: 'get',
-                url   : '{{route('sips01.master.datasiswa_listjk')}}',
-                
-                success: function(data){				    
-                    $("#idjk1").html(data);                
-                }
-            })                    
+            fetch('{{ route("sips01.master.datasiswa_listjk") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idjk1){
+                        idjk1.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
 
         tampil_listagama();
@@ -4718,6 +4938,23 @@
                     $("#idagamawali1").html(data);                
                 }
             })                    
+        }
+        function tampil_listjk(){				
+            fetch('{{ route("sips01.master.datasiswa_listjk") }}')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Menggunakan .text() karena data tampaknya berupa HTML string
+                })
+                .then(data => {
+                    if(idjk1){
+                        idjk1.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
 
         tampil_listkompetensi();

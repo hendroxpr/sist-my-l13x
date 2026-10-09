@@ -552,6 +552,7 @@
                     document.getElementById('users1').value = resultData[i].users;
                     document.getElementById('passwords1').value = resultData[i].passwords;
                     document.getElementById('kelas1').value = resultData[i].kelas;
+                    document.getElementById('nama1').value = resultData[i].nama;
                 }
 
             } catch (error) {

@@ -264,9 +264,26 @@
         const user1xn = document.getElementById('user1xn');        
         const entry1 = document.getElementById('entry1');        
         const entry1xy = document.getElementById('entry1xy');        
-        const entry1xn = document.getElementById('entry1xn');        
+        const entry1xn = document.getElementById('entry1xn'); 
+        const urutan1 = document.getElementById('urutan1'); 
         
-        const urutan1 = document.getElementById('urutan1');        
+        //dragging modal
+        $('#ModalAdd').on('shown.bs.modal', function () {
+            $(this).find('.modal-dialog').draggable({
+            handle: '.modal-content' // Modal hanya bisa digeser 
+            });
+        });
+        //supaya kembali ke tengah saat show lagi.
+        const dragModalAdd = document.getElementById('ModalAdd');
+        dragModalAdd.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
 
         //aktif
         aktif1xy.addEventListener('change', function(){
@@ -368,7 +385,7 @@
         }, 1000);
         
         function tampil_data1(){
-            return $('#data1').DataTable({
+            return new DataTable('#data1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -397,7 +414,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.menuutama_show') }}",
+                ajax: {
+                    url: "{{ route('admin.menuutama_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 

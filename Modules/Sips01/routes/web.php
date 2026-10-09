@@ -21,6 +21,8 @@ use Modules\Sips01\Http\Controllers\Master\PropinsiController;
 use Modules\Sips01\Http\Controllers\Master\SiswakelasController;
 use Modules\Sips01\Http\Controllers\master\TpController;
 use Modules\Sips01\Http\Controllers\Master\WalikelasController;
+use Modules\Sips01\Http\Controllers\Pengaturan\ParametertagihanController;
+use Modules\Sips01\Http\Controllers\Transaksi\BayartagihanController;
 use Modules\Sips01\Http\Controllers\transaksi\MagangController;
 use Modules\Sips01\Http\Controllers\Transaksi\NaikkelasController;
 use Modules\Sips01\Http\Controllers\transaksi\NilaiController;
@@ -344,8 +346,38 @@ Route::prefix('sips01')->group(function() {
     Route::delete('/transaksi/magangdestroy/{id}', [MagangController::class, 'destroy'])->name('sips01.transaksi.siswa_destroy')->middleware('auth'); /* hapus data magang */
     Route::get('/transaksi/magangprint', [MagangController::class, 'print'])->name('sips01.transaksi.magang_print')->middleware('auth'); /* menampilkan data magang pada datatable javascript */
 
-
-
+     /* pengaturan - parametertagihan */
+     Route::get('/pengaturan/parametertagihan', [ParametertagihanController::class, 'index'])->name('sips01.pengaturan.parametertagihan.index')->middleware('auth'); /* halaman parametertagihan */
+     Route::get('/pengaturan/parametertagihanshow', [ParametertagihanController::class, 'show'])->name('sips01.pengaturan.parametertagihan_show')->middleware('auth'); /* menampilkan data parametertagihan pada datatable javascript */
+     Route::get('/pengaturan/parametertagihanlisttp', [ParametertagihanController::class, 'listtp'])->name('sips01.pengaturan.parametertagihan_listtp')->middleware('auth'); /* menampilkan list tp */
+     Route::get('/pengaturan/parametertagihanlisttingkat', [ParametertagihanController::class, 'listtingkat'])->name('sips01.pengaturan.parametertagihan_listtingkat')->middleware('auth'); /* menampilkan list tingkat */
+     Route::get('/pengaturan/parametertagihanlistdataguru', [ParametertagihanController::class, 'listdataguru'])->name('sips01.pengaturan.parametertagihan_listdataguru')->middleware('auth'); /* menampilkan list dataguru */
+     Route::get('/pengaturan/parametertagihanlistjenistagihan', [ParametertagihanController::class, 'listjenistagihan'])->name('sips01.pengaturan.parametertagihan_listjenistagihan')->middleware('auth'); /* menampilkan list jenistagihan */
+     Route::post('/pengaturan/parametertagihancreate', [ParametertagihanController::class, 'create'])->name('sips01.pengaturan.parametertagihan_create')->middleware('auth'); /* menambah data parametertagihan */
+     Route::get('/pengaturan/parametertagihanedit/{id}', [ParametertagihanController::class, 'edit'])->name('sips01.pengaturan.parametertagihan_edit')->middleware('auth'); /* menampilkan data yang akan dirubah */
+     Route::post('/pengaturan/parametertagihanupdate', [ParametertagihanController::class, 'update'])->name('sips01.pengaturan.parametertagihan_update')->middleware('auth'); /* update data parametertagihan */
+     Route::post('/pengaturan/parametertagihankirimsyarat', [ParametertagihanController::class, 'kirimsyarat'])->name('sips01.pengaturan.parametertagihan_kirimsyarat')->middleware('auth'); /* kirimsyarat */
+     Route::delete('/pengaturan/parametertagihandestroy/{id}', [ParametertagihanController::class, 'destroy'])->name('sips01.pengaturan.parametertagihan_destroy')->middleware('auth'); /* hapus data parametertagihan */
+ 
+     /* transaksi - bayartagihan */
+     Route::get('/transaksi/bayartagihan', [BayartagihanController::class, 'index'])->name('sips01.transaksi.bayartagihan.index')->middleware('auth'); /* halaman bayartagihan */
+     Route::get('/transaksi/bayartagihanshow', [BayartagihanController::class, 'show'])->name('sips01.transaksi.bayartagihan_show')->middleware('auth'); /* menampilkan data bayartagihan pada datatable javascript */
+     Route::get('/transaksi/bayartagihanshowdatasiswa', [BayartagihanController::class, 'showdatasiswa'])->name('sips01.transaksi.bayartagihan_showdatasiswa')->middleware('auth'); /* menampilkan data siswa pada datatable javascript */
+     Route::get('/transaksi/bayartagihanlisttp', [BayartagihanController::class, 'listtp'])->name('sips01.transaksi.bayartagihan_listtp')->middleware('auth'); /* menampilkan list tp */
+     Route::get('/transaksi/bayartagihanlistbulan', [BayartagihanController::class, 'listbulan'])->name('sips01.transaksi.bayartagihan_listbulan')->middleware('auth'); /* menampilkan list bulan */
+     Route::get('/transaksi/bayartagihanlistkelas', [BayartagihanController::class, 'listkelas'])->name('sips01.transaksi.bayartagihan_listkelas')->middleware('auth'); /* menampilkan list kelas */
+     Route::get('/transaksi/bayartagihanlistdataguru', [BayartagihanController::class, 'listdataguru'])->name('sips01.transaksi.bayartagihan_listdataguru')->middleware('auth'); /* menampilkan list kelas */
+     Route::get('/transaksi/bayartagihanlistjenistagihan', [BayartagihanController::class, 'listjenistagihan'])->name('sips01.transaksi.bayartagihan_listjenistagihan')->middleware('auth'); /* menampilkan list jenistagihan */
+     Route::get('/transaksi/bayartagihanlistalasansetelahkeluar', [BayartagihanController::class, 'listalasansetelahkeluar'])->name('sips01.transaksi.bayartagihan_listalasansetelahkeluar')->middleware('auth'); /* menampilkan list alasansetelahkeluar */
+     Route::get('/transaksi/bayartagihanshowwali', [BayartagihanController::class, 'showwalikelas'])->name('sips01.transaksi.bayartagihan_showwalikelas')->middleware('auth'); /* menampilkan list kelas */
+     Route::post('/transaksi/bayartagihancreate', [BayartagihanController::class, 'create'])->name('sips01.transaksi.bayartagihan_create')->middleware('auth'); /* menambah data bayartagihan */
+     Route::get('/transaksi/bayartagihanedit/{id}', [BayartagihanController::class, 'edit'])->name('sips01.transaksi.bayartagihan_edit')->middleware('auth'); /* menampilkan data yang akan dirubah */
+     Route::post('/transaksi/bayartagihanupdate', [BayartagihanController::class, 'update'])->name('sips01.transaksi.bayartagihan_update')->middleware('auth'); /* update data bayartagihan */
+     Route::post('/transaksi/bayartagihankirimsyarat', [BayartagihanController::class, 'kirimsyarat'])->name('sips01.transaksi.bayartagihan_kirimsyarat')->middleware('auth'); /* kirimsyarat */
+     Route::post('/transaksi/bayartagihancariid', [BayartagihanController::class, 'cariid'])->name('sips01.transaksi.bayartagihan_cariid')->middleware('auth'); /* cari data siswa */
+     Route::post('/transaksi/bayartagihannomorbukti', [BayartagihanController::class, 'nomorbukti'])->name('sips01.transaksi.bayartagihan_nomorbukti')->middleware('auth'); /* buat nomorbukti */
+     Route::delete('/transaksi/bayartagihandestroy/{id}', [BayartagihanController::class, 'destroy'])->name('sips01.transaksi.bayartagihan_destroy')->middleware('auth'); /* hapus data bayartagihan */
+     Route::get('/transaksi/bayartagihanprintkwintansi', [BayartagihanController::class, 'printkwintansi'])->name('sips01.transaksi.bayartagihan_printkwintansi')->middleware('auth'); /* cetak data */
 
 
 

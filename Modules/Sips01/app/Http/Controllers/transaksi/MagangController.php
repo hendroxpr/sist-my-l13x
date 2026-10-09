@@ -196,19 +196,19 @@ class MagangController extends Controller
                 ->addIndexColumn() // Menambahkan nomor urut (DT_RowIndex)
                 
                 ->editColumn('ecard', function($row){
-                    $hasil = '<a href="javascript:void(0)" title="' . $row->ecard . '" class="text-decoration-none  text-body item_cariecard" data1="'. $row->id.'" data2="'. $row->ecard.'" data3="'. $row->nis.'" data4="'. $row->nisn.'" data5="'. $row->namalengkap.'">' . $row->ecard . '</a>';    
+                    $hasil = '<a href="javascript:void(0)" title="' . $row->ecard . '" class="text-decoration-none text-body item_cariecard" data1="'. $row->id.'" data2="'. $row->ecard.'" data3="'. $row->nis.'" data4="'. $row->nisn.'" data5="'. $row->namalengkap.'">' . $row->ecard . '</a>';    
                     return $hasil;
                 })
                 ->editColumn('nis', function($row){
-                    $hasil = '<a href="javascript:void(0)" title="' . $row->nis . '" class="text-decoration-none  text-body item_carinis" data1="'. $row->id.'" data2="'. $row->ecard.'" data3="'. $row->nis.'" data4="'. $row->nisn.'" data5="'. $row->namalengkap.'">' . $row->nis . '</a>';    
+                    $hasil = '<a href="javascript:void(0)" title="' . $row->nis . '" class="text-decoration-none text-body item_carinis" data1="'. $row->id.'" data2="'. $row->ecard.'" data3="'. $row->nis.'" data4="'. $row->nisn.'" data5="'. $row->namalengkap.'">' . $row->nis . '</a>';    
                     return $hasil;
                 })
                 ->editColumn('nisn', function($row){
-                    $hasil = '<a href="javascript:void(0)" title="' . $row->nisn . '" class="text-decoration-none  text-body item_carinisn" data1="'. $row->id.'" data2="'. $row->ecard.'" data3="'. $row->nis.'" data4="'. $row->nisn.'" data5="'. $row->namalengkap.'">' . $row->nisn . '</a>';    
+                    $hasil = '<a href="javascript:void(0)" title="' . $row->nisn . '" class="text-decoration-none text-body item_carinisn" data1="'. $row->id.'" data2="'. $row->ecard.'" data3="'. $row->nis.'" data4="'. $row->nisn.'" data5="'. $row->namalengkap.'">' . $row->nisn . '</a>';    
                     return $hasil;
                 })
                 ->editColumn('namalengkap', function($row){
-                    $hasil = '<a href="javascript:void(0)" title="' . $row->namalengkap . '" class="text-decoration-none  text-body item_carinamalengkap" data1="'. $row->id.'" data2="'. $row->ecard.'" data3="'. $row->nis.'" data4="'. $row->nisn.'" data5="'. $row->namalengkap.'">' . $row->namalengkap . '</a>';    
+                    $hasil = '<a href="javascript:void(0)" title="' . $row->namalengkap . '" class="text-decoration-none text-body item_carinamalengkap" data1="'. $row->id.'" data2="'. $row->ecard.'" data3="'. $row->nis.'" data4="'. $row->nisn.'" data5="'. $row->namalengkap.'">' . $row->namalengkap . '</a>';    
                     return $hasil;
                 })
 

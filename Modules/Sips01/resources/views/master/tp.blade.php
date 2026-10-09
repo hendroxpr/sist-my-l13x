@@ -299,6 +299,18 @@
             handle: '.modal-content' // Modal hanya bisa digeser 
             });
         });
+        //supaya kembali ke tengah saat show lagi.
+        const dragModalAdd = document.getElementById('ModalAdd');
+        dragModalAdd.addEventListener('hidden.bs.modal', function () {
+            const dialog = this.querySelector('.modal-dialog');
+            dialog.style.position = '';
+            dialog.style.margin = '';
+            dialog.style.transform = '';
+            dialog.style.left = '';
+            dialog.style.top = '';
+            dialog.style.width = '';
+        });
+
         
         setTimeout(() => {
             data1Datatable = tampil_data1();    
@@ -306,7 +318,7 @@
         
         function tampil_data1(){
             let i = 1;
-            return $('#data1').DataTable({
+            return new DataTable('#data1', {
                 responsive : true,
                 // destroy: true,
                 retrieve: true,
@@ -335,7 +347,10 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sips01.master.tp_show') }}",
+                ajax: {
+                    url: "{{ route('sips01.master.tp_show') }}",
+                    type: "GET" // atau "POST" sesuai route Laravel Anda
+                },
                 columns: [
                     { "data": 'DT_RowIndex',
                         orderable: false, 

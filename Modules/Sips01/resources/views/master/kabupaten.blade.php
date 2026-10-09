@@ -360,7 +360,7 @@
             })
         }
 
-        setInterval(() => {
+        setTimeout(() => {
             idpropinsix1.change();
             kirim_syarat();
         }, 500);

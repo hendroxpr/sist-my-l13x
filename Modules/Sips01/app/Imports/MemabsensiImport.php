@@ -43,6 +43,12 @@ class MemabsensiImport implements ToModel, WithStartRow
             'alpa' => intval($row[6]),
             'status' => $status,
             'kelas' => strtoupper(trim(mb_substr($row[8], 0, 5,"UTF-8"))),
+            'tempatwali' => trim(mb_substr($row[9], 0, 200,"UTF-8")),
+            'namawali' => trim(mb_substr($row[10], 0, 200,"UTF-8")),
+            'nipwali' => trim(mb_substr($row[11], 0, 200,"UTF-8")),
+            'tempatks' => trim(mb_substr($row[12], 0, 200,"UTF-8")),
+            'namaks' => trim(mb_substr($row[13], 0, 200,"UTF-8")),
+            'nipks' => trim(mb_substr($row[14], 0, 200,"UTF-8")),
 
         ]);
     }

@@ -88,7 +88,6 @@ class NilaiController extends Controller
         ]);
         
     }
-
     public function importnilai(Request $request){
         
         if ($request->hasFile('file1')) {
@@ -212,6 +211,12 @@ class NilaiController extends Controller
                             'alpa' => $item->alpa,
                             'status' => $item->status,
                             'kelas' => $item->kelas,
+                            'tempatwali' => $item->tempatwali,
+                            'namawali' => $item->namawali,
+                            'nipwali' => $item->nipwali,
+                            'tempatks' => $item->tempatks,
+                            'namaks' => $item->namaks,
+                            'nipks' => $item->nipks,
                         ];
 
                         $cari = Absensi::where('iddatasiswa', '=', $iddatasiswa)
